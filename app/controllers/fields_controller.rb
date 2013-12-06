@@ -13,7 +13,7 @@ class FieldsController < ApplicationController
   end
 
   def create_collection
-    field_params.each do |data|
+    field_collection_params.each do |data|
       Field.create(data)
     end
     respond_to do |format|
@@ -26,7 +26,6 @@ class FieldsController < ApplicationController
 
   def update
     respond_to do |format|
-      # if @field.change_column_if_empty
       if @field.update(field_params)
         format.html { redirect_to :controller => 'admin', :action => 'fields', notice: 'Field was successfully updated.' }
         format.json { head :no_content }
@@ -57,8 +56,12 @@ class FieldsController < ApplicationController
       @field = Field.find(params[:id])
     end
 
-    def field_params
+    def field_collection_params
       params.require(:field)
+    end
+
+    def field_params
+      params.require(:field).permit!
     end
 
     def invalid_duplicate_field(exception)
