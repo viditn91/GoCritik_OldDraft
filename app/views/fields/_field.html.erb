@@ -1,0 +1,11 @@
+<tr>
+  <% attributes.each do |attr| %>
+    <% if attr == 'options' && field.try(attr.to_sym) %>
+      <td><pre><%= make_hash_readable(field.send(attr.to_sym)) %></pre></td>
+    <% else %>
+      <td><pre><%= field.send (attr.to_sym) %></pre></td>
+    <% end %>
+  <% end %>
+  <td class = "no_border"><%= button_to 'edit', edit_field_path(field), method: :get%></td>
+  <td class = "no_border"><%= button_to 'remove', field_path(field), method: :delete %></td>
+</tr>

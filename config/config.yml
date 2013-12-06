@@ -1,0 +1,5 @@
+resource:
+  name: 'Hotel'
+  header: 'this is the header'
+  footer: 'this is the footer'
+  contact_details: 'these are contact details'

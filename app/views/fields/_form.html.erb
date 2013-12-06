@@ -1,0 +1,37 @@
+<%= form_for @field, html: {class: "form_for_edit"} do |f| %>
+  <table>
+      <tr>
+        <td>Field Name: <td><%= f.text_field :name %>
+      </tr>
+      <tr>
+        <td>Display Name: <td><%= f.text_field :display_name %>
+      </tr>
+      <tr>
+        <td>Input Type: <td><%= f.select :input_type, InputTypeArray%>
+      </tr>
+      <tr>
+        <td>Field Type: <td><%= f.select :field_type, FieldTypeArray%>
+      </tr>
+      <tr>
+        <td>Default Value: <td><%= f.text_field :default_value %>
+      </tr>
+      <tr>
+        <td>Options:</td> 
+        <td id="options_container_for_edit" >
+          <% if @field.options.present? %>
+            <% @field.options.each do |hash| %>
+              <div>
+              <input name="field[options][][text]" type="text" value="<%= hash[:text] %>" />
+              <input name="field[options][][value]" type="text" value="<%= hash[:value] %>" />
+              <a class="link_to_remove_option_for_edit">[-] Remove</a>
+              </div>     
+            <% end %>
+            <a class="link_to_add_option_for_edit">[+] Add Another Option</a>
+          <% end %>        
+        </td>
+      </tr>
+    </table>
+  <div class="actions_for_edit">
+    <%= f.submit %>
+  </div>
+<% end %>

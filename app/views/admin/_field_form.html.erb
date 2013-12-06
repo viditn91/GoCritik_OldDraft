@@ -1,0 +1,23 @@
+<div class="field_form">
+  
+  <%= fields_for "[field][]", field_form do |f| %>
+    <table>
+      <tr>
+      	<td>Field Name: <td><%= f.text_field :name %>
+      </tr>
+      <tr>
+      	<td>Display Name: <td><%= f.text_field :display_name %>
+      </tr>
+      <tr>
+        <td>Input Type: <td><%= f.select :input_type, InputTypeArray%>
+      </tr>
+      <tr>
+        <td>Field Type: <td><%= f.select :field_type, FieldTypeArray%>
+      </tr>
+      <tr>
+        <td>Default Value: <td><%= f.text_field :default_value %>
+      </tr>
+    </table>
+  <% end %>
+  <%= button_to_function "remove", "$(this).closest('.field_form').remove()", class: "field_form_remove_button"%>
+</div>

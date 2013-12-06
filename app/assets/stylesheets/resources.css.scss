@@ -1,0 +1,53 @@
+.resources {
+  table {
+    border-collapse: collapse;
+  }
+  th {
+    font-size: 15px;
+    padding: 10px;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+  }
+  td {
+    font-size: 12px;
+    padding: 10px;
+    text-align: right;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+  }
+  td.no_border {
+    border: none;
+    padding: 5px;
+  }
+  
+  form.form_for_adding_fields {
+    #fields {
+      div.field_form {
+        table {
+          display: inline;
+          border-collapse: collapse;
+          border: none;
+          td {
+            padding: 0px;
+            padding-right: 10px;
+            border: none;
+            font-size: 12px;
+            text-align: right;
+          }
+        }
+        
+        .field_form_remove_button {
+          margin-top: 50px;
+          display: inline;
+        }
+      }
+    }
+    .form_add_field_button {
+      clear: both;
+      display: block;
+    }
+    .form_submit_button {
+        display: none;
+    }
+  }
+}

@@ -1,0 +1,5 @@
+<h1>Welcome Admin!</h1>
+<h4>Its <%= Time.now %></h4>
+<p><%= link_to 'Fields', :controller => "admin", :action => "fields"%></p>
+<p><%= link_to "View all #{ ResourceName.pluralize } ", resources_path %></p>
+<p><%= link_to "Add a New #{ ResourceName }", new_resource_path %></p>

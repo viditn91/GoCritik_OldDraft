@@ -1,0 +1,9 @@
+<% if params[:notice] %>
+<p id="notice"><%= params[:notice] %></p>
+<% end %>
+
+<h1>New <%= ResourceName %></h1>
+
+<%= render 'form' %>
+<%= render 'admin/form' %>
+<%= link_to 'Back to Admin', admin_path %>

@@ -1,0 +1,16 @@
+<% if @fields.blank? %>
+  <% flash[:notice] = "No Field created. Click on 'add a field'" %>
+<% end %>
+
+<% if @fields.present? %>
+  <h1>Listing Fields-</h1>
+  <table>
+    <% attributes = Field.column_names - ['id', 'created_at', 'updated_at'] %>
+    <% attributes.each do |attr| %>
+      <th><%= attr.humanize %></th>
+    <% end %>
+    <%= render partial: @fields, locals: {attributes: attributes} %>
+  </table>
+<% end %>
+<%= render 'form' %>
+<%= link_to 'Back To Admin', admin_path %>

@@ -1,0 +1,28 @@
+<%= form_for(@resource) do |f| %>
+ <table>
+  <% Field.all.each do |field| %>
+    <tr>
+      <% label_name = field.display_name.to_sym %>
+      <% field_name, type  = field.name.to_sym, field.field_type %>
+      <td><%= f.label label_name %></td>
+      <td>
+        <% if type == 'select' %>
+          <% options_array = options_array_from_hash(field.options) %>
+          <%= f.select field_name, options_array %>
+        <% elsif type == 'radio_button_tag' %>
+          <% options_array = options_array_from_hash(field.options) %>
+          <% options_array.each do |text, value|  %> 
+            <%= radio_button("resource", field_name, value) %>
+            <%= label("resource", field_name, text ) %>
+          <% end %>
+        <% else %>
+          <%= eval "f.#{type} field_name" %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+  </table>
+  <div class="actions">
+    <%= f.submit 'Create'%>
+  </div>
+<% end %>

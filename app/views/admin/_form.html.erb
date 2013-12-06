@@ -1,0 +1,8 @@
+<%= form_tag({controller: "fields", action: "create_collection"}, class: "form_for_adding_fields") do %>
+  <div id = "fields" >
+  </div>
+  <p>
+    <%= add_field_button( "Add a field", 'fields', { class: "form_add_field_button" }, partial: 'admin/field_form', object: Field.new) %>
+  </p>
+  <%= submit_tag "Done", class: "form_submit_button"%>
+<% end %>
