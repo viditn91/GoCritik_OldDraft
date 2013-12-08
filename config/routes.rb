@@ -1,9 +1,12 @@
 Gocritik::Application.routes.draw do
 
-  resources :fields
-
-  resources :resources
-
+  scope '/admin' do
+    resources :fields do
+      post 'fields/create_collection', on: :collection
+    end
+    resources :resources, path: ResourceName.pluralize.downcase
+  end
+  
   get 'admin' => 'admin#home'
-  post 'fields/create_collection' => 'fields#create_collection'
+
 end
