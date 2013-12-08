@@ -1,11 +1,16 @@
 <tr>
   <% attributes.each do |attr| %>
-    <% if attr == 'options' && field.try(attr.to_sym) %>
-      <td><pre><%= make_hash_readable(field.send(attr.to_sym)) %></pre></td>
-    <% else %>
-      <td><pre><%= field.send (attr.to_sym) %></pre></td>
-    <% end %>
+    <td>
+      <% if attr == 'options' && field.try(attr.to_sym) %>
+        <%= make_hash_readable(field.send(attr.to_sym))%>
+      <% else %>
+      <% value = field.send(attr.to_sym) %>
+      <%= value.present? ? value : '- NA -' %>
+      <% end %>
+    </td>
   <% end %>
-  <td class = "no_border"><%= button_to 'edit', edit_field_path(field), method: :get%></td>
-  <td class = "no_border"><%= button_to 'remove', field_path(field), method: :delete %></td>
+  <td>
+    <%= link_to 'Edit', edit_field_path(field), :class => 'btn btn-mini' %>
+    <%= link_to 'Remove', field, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger' %>
+  </td>
 </tr>

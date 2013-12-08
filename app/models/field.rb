@@ -33,7 +33,7 @@ protected
       name = hash["name"][0]
     end
     if hash.keys.include? 'input_type' 
-      if is_column_empty?(name)
+      if is_column_empty?(self.name)
         if hash.keys.include? 'default_value'
           ActiveRecord::Migration.change_column(Resource, name, hash["input_type"][1], default: hash["default_value"][1] )
         else
@@ -57,7 +57,7 @@ protected
 
   def is_column_empty?(column_name)
     Resource.all.each do |value|
-      return false if value.send(column_name).present?
+      return false if value.send(column_name.to_sym).present?
     end
   end
   

@@ -1,6 +1,8 @@
 class FieldsController < ApplicationController
 
   before_action :set_field, only: [:edit, :update, :destroy]
+  #as PATCH request is sent, if the field_type is changed, the options hash is to be emptied explicitly
+  before_action :remove_options_if_params_empty, only: [:update]
   
   # including Exceptions module from the initializers
   include Exceptions
@@ -66,6 +68,10 @@ class FieldsController < ApplicationController
 
     def field_params
       params.require(:field).permit!
+    end
+
+    def remove_options_if_params_empty
+      @field.options = nil if field_params["options"].blank?
     end
 
     def invalid_duplicate_field(exception)

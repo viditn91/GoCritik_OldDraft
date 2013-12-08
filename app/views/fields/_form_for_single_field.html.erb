@@ -1,23 +1,48 @@
 <div class="field_form">
   
   <%= fields_for "[field][]", form_for_single_field do |f| %>
-    <table>
-      <tr>
-      	<td>Field Name: <td><%= f.text_field :name %>
-      </tr>
-      <tr>
-      	<td>Display Name: <td><%= f.text_field :display_name %>
-      </tr>
-      <tr>
-        <td>Input Type: <td><%= f.select :input_type, InputTypeArray%>
-      </tr>
-      <tr>
-        <td>Field Type: <td><%= f.select :field_type, FieldTypeArray%>
-      </tr>
-      <tr>
-        <td>Default Value: <td><%= f.text_field :default_value %>
-      </tr>
-    </table>
+    <div class="control-group">
+      <%= f.label 'Field Name', :class => 'control-label' %>
+      <div class="controls">
+      	<%= f.text_field :name %>
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <%= f.label 'Display Name', :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :display_name %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label 'Input Type', :class => 'control-label' %>
+      <div class="controls">
+        <%= f.select :input_type, InputTypeArray %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label 'Field Type', :class => 'control-label' %>
+      <div class="controls">
+        <%= f.select :field_type, FieldTypeArray %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label 'Default Value', :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :default_value %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label 'OptionsL', :class => 'control-label' %>
+      <div class="controls">
+        <div class="options_container">
+        </div>
+      </div>
+    </div>
   <% end %>
   <%= button_to_function "remove", "$(this).closest('.field_form').remove()", class: "field_form_remove_button"%>
 </div>

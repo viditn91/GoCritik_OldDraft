@@ -22,5 +22,6 @@
   <% end %>
   <div class="actions">
     <%= f.submit action_name == 'new' ? 'Create' : 'Update', :class => 'btn btn-primary'%>
+    <%= link_to 'Cancel', :back, :class => "btn" %>
   </div>
 <% end %>

@@ -1,14 +1,23 @@
 <% if @fields.blank? %>
   <% flash[:notice] = "No Field created. Click on 'add a field'" %>
 <% else %>
-  <h1>Listing Fields-</h1>
-  <table>
-    <% attributes = Field.column_names - ['id', 'created_at', 'updated_at'] %>
-    <% attributes.each do |attr| %>
-      <th><%= attr.humanize %></th>
-    <% end %>
-    <%= render partial: @fields, locals: {attributes: attributes} %>
+  <div class="page-header">
+    <h1>Listing <%= ResourceName %> Fields -</h1>
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <% attributes = Field.column_names - ['id', 'created_at', 'updated_at'] %>
+        <% attributes.each do |attr| %>
+          <th><%= attr.humanize %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: @fields, locals: { attributes: attributes } %>
+    </tbody>
   </table>
+
 <% end %>
 <%= render 'form_for_multiple_fields' %>
-<%= link_to 'Back To Admin', admin_path %>
+<%= link_to 'Back To Admin', admin_path, :class => "btn" %>

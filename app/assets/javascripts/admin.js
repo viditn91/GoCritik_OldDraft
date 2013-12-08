@@ -4,7 +4,7 @@ ready = function() {
   // code to append options fields if selectbox/redio buttons are selected
   $(document).on('change','#_field__field_type',function() {
     var scope = $(this);
-    scope.closest('.field_form').find('.options_container').remove();
+    scope.closest('.field_form').find('.options_container').html('');
     if(scope.find('option:selected').text() == 'Select Box' || scope.find('option:selected').text() == 'Radio Buttons') {
       add_options_to_field_type(scope);
     }
@@ -12,9 +12,10 @@ ready = function() {
   // code to append options if the add more options button is clicked
   $(document).on('click','.link_to_add_options', function() {
     var scope = $(this);
-    scope.text('[x] Remove');
-    scope.removeClass('link_to_add_options').addClass('link_to_remove_options');
     add_options_to_field_type(scope);
+    // scope.text('[x] Remove');
+    // scope.removeClass('link_to_add_options').addClass('link_to_remove_options');
+    // add_options_to_field_type(scope);
   });
   // code to append options if the add more options button is clicked
   $(document).on('click','.link_to_remove_options', function() {
@@ -36,15 +37,22 @@ ready = function() {
 };
 // function to append option fields
 add_options_to_field_type = function(scope) {
+  console.log('inside');
   var $options_container = scope.closest('.field_form').find('.options_container');
-  if(!$options_container.length) {
-    scope.closest('.field_form').append('<div class=options_container></div>');
-    $options_container = scope.closest('.field_form').find('.options_container');
-  }
-  var appended_elements_string = '<div><input id=_field__field_type_options type=text name=[field][][options][][text]>'
-    + '<input id=_field__field_type_options type=text name=[field][][options][][value]>'
-    + '<a class=link_to_add_options>[+] Add more Options</a></div>';
+  $options_container.find('.link_to_add_options').remove();
+  var appended_elements_string = '<div><input name="[field][][options][][text]" type="text" />'
+   + '<input name="[field][][options][][value]" type="text" />' 
+   + '<a class="link_to_remove_options">[-] Remove</a></div>'
+   + '<a class="link_to_add_options">[+] Add Another Option</a>';
   $options_container.append(appended_elements_string);
+  // if(!$options_container.length) {
+  //   scope.closest('.field_form').append('<div class=options_container></div>');
+  //   $options_container = scope.closest('.field_form').find('.options_container');
+  // }
+  // var appended_elements_string = '<div><input id=_field__field_type_options type=text name=[field][][options][][text]>'
+  //   + '<input id=_field__field_type_options type=text name=[field][][options][][value]>'
+  //   + '<a class=link_to_add_options>[+] Add more Options</a></div>';
+  // $options_container.append(appended_elements_string);
 }
 // uploading script for the first time
 $(document).ready(ready);
