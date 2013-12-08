@@ -1,9 +1,5 @@
-<% if params[:notice] %>
-<p id="notice"><%= params[:notice] %></p>
-<% end %>
-
-<h1>New <%= ResourceName %></h1>
-
+<div class="page-header">
+  <h1>New <%= ResourceName %></h1>
+</div>
 <%= render 'form' %>
-<%= render 'admin/form' %>
-<%= link_to 'Back to Admin', admin_path %>
+<%= link_to 'Back To Listings', resources_path, :class => "btn" %>

@@ -2,7 +2,7 @@
   <div id = "fields" >
   </div>
   <p>
-    <%= add_field_button( "Add a field", 'fields', { class: "form_add_field_button" }, partial: 'admin/field_form', object: Field.new) %>
+    <%= add_field_button( "Add a field", 'fields', { class: "form_add_field_button" }, partial: 'form_for_single_field', object: Field.new) %>
   </p>
   <%= submit_tag "Done", class: "form_submit_button"%>
 <% end %>

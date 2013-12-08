@@ -1,6 +1,6 @@
 <div class="field_form">
   
-  <%= fields_for "[field][]", field_form do |f| %>
+  <%= fields_for "[field][]", form_for_single_field do |f| %>
     <table>
       <tr>
       	<td>Field Name: <td><%= f.text_field :name %>

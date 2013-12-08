@@ -57,7 +57,7 @@ protected
 
   def is_column_empty?(column_name)
     Resource.all.each do |value|
-      return false if value.send(column_name.to_sym).present?
+      return false if value.send(column_name).present?
     end
   end
   

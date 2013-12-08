@@ -1,8 +1,6 @@
 <% if @fields.blank? %>
   <% flash[:notice] = "No Field created. Click on 'add a field'" %>
-<% end %>
-
-<% if @fields.present? %>
+<% else %>
   <h1>Listing Fields-</h1>
   <table>
     <% attributes = Field.column_names - ['id', 'created_at', 'updated_at'] %>
@@ -12,5 +10,5 @@
     <%= render partial: @fields, locals: {attributes: attributes} %>
   </table>
 <% end %>
-<%= render 'form' %>
+<%= render 'form_for_multiple_fields' %>
 <%= link_to 'Back To Admin', admin_path %>

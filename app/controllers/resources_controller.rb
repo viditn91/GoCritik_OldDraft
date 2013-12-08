@@ -26,6 +26,9 @@ class ResourcesController < ApplicationController
     end
   end
 
+  def show
+  end
+
   def update
     respond_to do |format|
       if @resource.update(resource_params)

@@ -6,9 +6,11 @@
 <p id="notice"><%= params[:notice] %></p>
 <% end %>
 
-<h1>Listing <%= ResourceName.pluralize %></h1>
+<div class="page-header">
+  <h1>Listing <%= ResourceName.pluralize %></h1>
+</div>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <% Field.all.each do |field| %>
@@ -16,21 +18,23 @@
       <% end %>
     </tr>
   </thead>
-
   <tbody>
     <% @resources.each do |resource| %>
       <tr>
         <% Field.all.each do |field| %>
           <td><%= resource.send(field.name) %></td>
         <% end %>
-        <td class = "no_border"><%= button_to 'Edit', edit_resource_path(resource), method: :get %></td>
-        <td class = "no_border"><%= button_to 'Destroy', resource, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to 'Show', resource, :class => 'btn btn-mini' %>
+          <%= link_to 'Edit', edit_resource_path(resource), :class => 'btn btn-mini' %>
+          <%= link_to 'Destroy', resource, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger' %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<p><%= link_to "Add new #{ ResourceName }", new_resource_path %>
-<p><%= link_to 'Back to Admin', admin_path %>
+<div>
+  <%= link_to "Add new #{ ResourceName }", new_resource_path, :class => 'btn btn-primary' %>
+  <%= link_to 'Back to Admin', admin_path, :class => 'btn' %>
+</div>

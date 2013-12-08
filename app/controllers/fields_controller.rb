@@ -24,10 +24,14 @@ class FieldsController < ApplicationController
   def edit
   end
 
+  def index
+    @fields = Field.all
+  end
+
   def update
     respond_to do |format|
       if @field.update(field_params)
-        format.html { redirect_to :controller => 'admin', :action => 'fields', notice: 'Field was successfully updated.' }
+        format.html { redirect_to :action => :index, notice: 'Field was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -39,7 +43,7 @@ class FieldsController < ApplicationController
   def destroy
     if @field.destroy
       respond_to do |format|
-        format.html { redirect_to :controller => 'admin', :action => 'fields', :notice => 'Field successfully removed' }
+        format.html { redirect_to :back, :notice => 'Field successfully removed' }
         format.json { head :no_content }
       end
     # else

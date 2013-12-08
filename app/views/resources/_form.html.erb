@@ -1,28 +1,26 @@
-<%= form_for(@resource) do |f| %>
- <table>
+<%= form_for @resource, :html => { :class => 'form-horizontal' } do |f| %>
   <% Field.all.each do |field| %>
-    <tr>
+    <div class="control-group">
       <% label_name = field.display_name.to_sym %>
-      <% field_name, type  = field.name.to_sym, field.field_type %>
-      <td><%= f.label label_name %></td>
-      <td>
+      <% field_name, type = field.name.to_sym, field.field_type %>
+      <%= f.label label_name, :class => 'control-label' %>
+      <div class="controls">
         <% if type == 'select' %>
           <% options_array = options_array_from_hash(field.options) %>
           <%= f.select field_name, options_array %>
         <% elsif type == 'radio_button_tag' %>
           <% options_array = options_array_from_hash(field.options) %>
-          <% options_array.each do |text, value|  %> 
+          <% options_array.each do |text, value| %>
             <%= radio_button("resource", field_name, value) %>
             <%= label("resource", field_name, text ) %>
           <% end %>
         <% else %>
           <%= eval "f.#{type} field_name" %>
         <% end %>
-      </td>
-    </tr>
+      </div>
+    </div>
   <% end %>
-  </table>
   <div class="actions">
-    <%= f.submit 'Create'%>
+    <%= f.submit action_name == 'new' ? 'Create' : 'Update', :class => 'btn btn-primary'%>
   </div>
 <% end %>
