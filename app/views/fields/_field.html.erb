@@ -4,8 +4,8 @@
       <% if attr == 'options' && field.try(attr.to_sym) %>
         <%= make_hash_readable(field.send(attr.to_sym))%>
       <% else %>
-      <% value = field.send(attr.to_sym) %>
-      <%= value.present? ? value : '- NA -' %>
+        <% value = field.send(attr.to_sym) %>
+        <%= value.present? ? value : '- NA -' %>
       <% end %>
     </td>
   <% end %>

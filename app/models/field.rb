@@ -27,37 +27,38 @@ protected
 
   def change_column_from_resources
     hash = self.changes
+    name = self.name
     #storing the field name in a variable name, so that one migration does not effect the column name in other,
     # which happens if self.name is used
     if hash.keys.include? 'name'
-      name = hash["name"][0]
+      name = hash["name"].first
     end
-    if hash.keys.include? 'input_type' 
-      if is_column_empty?(self.name)
+    if hash.keys.include? 'input_type'
+      if is_column_empty?(name)
         if hash.keys.include? 'default_value'
-          ActiveRecord::Migration.change_column(Resource, name, hash["input_type"][1], default: hash["default_value"][1] )
+          ActiveRecord::Migration.change_column(Resource, name, hash["input_type"].second, default: hash["default_value"].second )
         else
-          ActiveRecord::Migration.change_column(Resource, name, hash["input_type"][1])
+          ActiveRecord::Migration.change_column(Resource, name, hash["input_type"].second)
         end
         if hash.keys.include? 'name'
-          ActiveRecord::Migration.rename_column(Resource, hash["name"][0], hash["name"][1])
+          ActiveRecord::Migration.rename_column(Resource, hash["name"].first, hash["name"].second)
         end
       else
         raise ColumnNotEmpty.new("Attempt to modify a Data Type of a Non-Empty Column, Records depend on this field") 
       end
     else
       if hash.keys.include? 'default_value'
-        ActiveRecord::Migration.change_column_default(Resource, name, hash["default_value"][1])
+        ActiveRecord::Migration.change_column_default(Resource, name, hash["default_value"].second)
       end
       if hash.keys.include? 'name'
-        ActiveRecord::Migration.rename_column(Resource, hash["name"][0], hash["name"][1])
+        ActiveRecord::Migration.rename_column(Resource, hash["name"].first, hash["name"].second)
       end
     end
   end
 
   def is_column_empty?(column_name)
-    Resource.all.each do |value|
-      return false if value.send(column_name.to_sym).present?
+    Resource.pluck(column_name).each do |value|
+      return false if value.present?
     end
   end
   

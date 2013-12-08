@@ -22,7 +22,8 @@
     <% @resources.each do |resource| %>
       <tr>
         <% Field.all.each do |field| %>
-          <td><%= resource.send(field.name) %></td>
+          <% value = resource.send(field.name) %>
+          <td><%= value.present? ? value : '- NA -'%></td>
         <% end %>
         <td>
           <%= link_to 'Show', resource, :class => 'btn btn-mini' %>
