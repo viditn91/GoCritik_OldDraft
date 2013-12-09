@@ -2,7 +2,10 @@
   <% attributes.each do |attr| %>
     <td>
       <% if attr == 'options' && field.try(attr.to_sym) %>
-        <%= make_hash_readable(field.send(attr.to_sym))%>
+        <pre><%= make_hash_readable(field.send(attr.to_sym))%></pre>
+      <% elsif attr == 'required' || attr == 'unique' %>
+        <% value = field.send(attr.to_sym) %>
+        <%= value %>
       <% else %>
         <% value = field.send(attr.to_sym) %>
         <%= value.present? ? value : '- NA -' %>

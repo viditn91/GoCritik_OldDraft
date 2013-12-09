@@ -1,7 +1,20 @@
 <%= form_for @resource, :html => { :class => 'form-horizontal' } do |f| %>
+  
+  <% if @resource.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@resource.errors.count, "error") %> prohibited this cart from being saved:</h2>
+      <ul>
+        <% @resource.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <% Field.all.each do |field| %>
     <div class="control-group">
-      <% label_name = field.display_name.to_sym %>
+      <% label_name = field.display_name %>
+      <% label_name += '*' if field.required %>
       <% field_name, type = field.name.to_sym, field.field_type %>
       <%= f.label label_name, :class => 'control-label' %>
       <div class="controls">
@@ -11,8 +24,10 @@
         <% elsif type == 'radio_button_tag' %>
           <% options_array = options_array_from_hash(field.options) %>
           <% options_array.each do |text, value| %>
-            <%= radio_button("resource", field_name, value) %>
-            <%= label("resource", field_name, text ) %>
+            <div class="radio inline">
+              <%= radio_button("resource", field_name, value) %>
+              <%= label("resource", field_name, text ) %>
+            </div>
           <% end %>
         <% else %>
           <%= eval "f.#{type} field_name" %>

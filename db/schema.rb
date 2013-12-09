@@ -14,12 +14,14 @@
 ActiveRecord::Schema.define(version: 20131130060630) do
 
   create_table "fields", force: true do |t|
-    t.string   "name"
+    t.string   "name" 
     t.string   "display_name"
     t.string   "input_type"
     t.string   "field_type"
     t.text     "options"
     t.string   "default_value"
+    t.boolean  "required"
+    t.boolean  "unique"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

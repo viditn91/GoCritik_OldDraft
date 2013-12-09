@@ -7,6 +7,8 @@ class CreateFields < ActiveRecord::Migration
       t.string :field_type
       t.text :options
       t.string :default_value
+      t.boolean :required
+      t.boolean :unique
 
       t.timestamps
     end

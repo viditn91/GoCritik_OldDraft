@@ -36,6 +36,20 @@
   </div>
 
   <div class="control-group">
+    <%= f.label 'Is the field Required?', :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :required, [['Yes', true], ['No', false]] %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label 'Should the field be unique?', :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :unique, [['Yes', true], ['No', false]] %>
+    </div>
+  </div>
+
+  <div class="control-group">
     <%= f.label 'Options', :class => 'control-label' %>
     <div class="controls">
       <div id="options_container_for_edit" >

@@ -35,7 +35,6 @@ ready = function() {
 };
 // function to append option fields
 add_options_to_field_type = function(scope) {
-  console.log('inside');
   var $options_container = scope.closest('.field_form').find('.options_container');
   $options_container.find('.link_to_add_options').remove();
   var appended_elements_string = '<div><input name="[field][][options][][text]" type="text" />'
