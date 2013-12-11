@@ -5,15 +5,17 @@ class FieldsController < ApplicationController
   before_action :remove_options_if_params_empty, only: [:update]
   
   # including Exceptions module from the initializers
+  #[FIXME] I don't think we need to include this module
   include Exceptions
   # exception handling
+  #[FIXME] do not rescue ActiveRecord::StatementInvalid. This will catch all exceptions
   rescue_from ActiveRecord::StatementInvalid, with: :invalid_duplicate_field
   rescue_from Exceptions::ColumnNotEmpty, with: :drop_action_on_non_empty_field
 
   def new
     @field = Field.new
   end
-
+  #[FIXME] For now, we can create only one field at a time.
   def create_collection
     field_collection_params.each do |data|
       Field.create(data)
@@ -33,6 +35,7 @@ class FieldsController < ApplicationController
   def update
     respond_to do |format|
       if @field.update(field_params)
+        #[FIXME] notice is appearing in query string
         format.html { redirect_to :action => :index, notice: 'Field was successfully updated.' }
         format.json { head :no_content }
       else
@@ -59,6 +62,7 @@ class FieldsController < ApplicationController
 
   private
     def set_field
+      #[FIXME] use find_by and check if field exists
       @field = Field.find(params[:id])
     end
 
@@ -67,6 +71,7 @@ class FieldsController < ApplicationController
     end
 
     def field_params
+      #[FIXME] using permit! will allow user to update any attribute.
       params.require(:field).permit!
     end
 
