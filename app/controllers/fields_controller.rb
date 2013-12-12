@@ -3,25 +3,31 @@ class FieldsController < ApplicationController
   before_action :set_field, only: [:edit, :update, :destroy]
   #as PATCH request is sent, if the field_type is changed, the options hash is to be emptied explicitly
   before_action :remove_options_if_params_empty, only: [:update]
-  
+
+
   # including Exceptions module from the initializers
   #[FIXME] I don't think we need to include this module
   include Exceptions
   # exception handling
   #[FIXME] do not rescue ActiveRecord::StatementInvalid. This will catch all exceptions
-  rescue_from ActiveRecord::StatementInvalid, with: :invalid_duplicate_field
+  # rescue_from ActiveRecord::StatementInvalid, with: :invalid_duplicate_field
   rescue_from Exceptions::ColumnNotEmpty, with: :drop_action_on_non_empty_field
 
   def new
     @field = Field.new
   end
   #[FIXME] For now, we can create only one field at a time.
-  def create_collection
-    field_collection_params.each do |data|
-      Field.create(data)
-    end
+  def create
+    @field = Field.new(field_params)
+
     respond_to do |format|
-      format.html { redirect_to :back, notice: 'Field succesfully created'}
+      if @field.save
+        format.html { redirect_to fields_path, notice: 'Field was successfully created.' }
+        format.json { render action: 'show', status: :created, location: @resource }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @resource.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -66,10 +72,6 @@ class FieldsController < ApplicationController
       @field = Field.find(params[:id])
     end
 
-    def field_collection_params
-      params.require(:field)
-    end
-
     def field_params
       #[FIXME] using permit! will allow user to update any attribute.
       params.require(:field).permit!
@@ -81,7 +83,7 @@ class FieldsController < ApplicationController
 
     def invalid_duplicate_field(exception)
       logger.error "Attempt to create a duplicate field"
-      flash[:notice] = "Field with the same name already exists, Cannot create a duplicate field. "
+      flash[:notice] = exception.original_exception.class.name
       redirect_to :back
     end
 
