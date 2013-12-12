@@ -17,7 +17,7 @@
       <%= render partial: @fields, locals: { attributes: attributes } %>
     </tbody>
   </table>
-
 <% end %>
-<%= render 'form_for_multiple_fields' %>
+
+<%= button_to "Add a field", new_field_path, :class => "btn btn-primary", method: :get%>
 <%= link_to 'Back To Admin', admin_path, :class => "btn" %>

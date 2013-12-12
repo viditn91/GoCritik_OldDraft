@@ -10,6 +10,9 @@ class Field < ActiveRecord::Base
   before_update :change_column_from_resources
   after_update :reload_schema
   
+  validates :name, presence: true, format: { with: /\A[a-zA-Z_][a-zA-Z0-9_]*\Z/, 
+    message: "should start with a letter/underscore followed by a number/letter/underscore with no spaces in between" }, uniqueness: { case_sensitive: false}
+  validates :display_name, presence: true, uniqueness: { case_sensitive: false }
 
 protected
   
@@ -54,6 +57,10 @@ protected
         ActiveRecord::Migration.rename_column(Resource, hash["name"].first, hash["name"].second)
       end
     end
+    if hash.keys.include? 'field_type' && !is_column_empty?(name)
+      ColumnNotEmpty.new("Attempt to modify the field_type of a Non-Empty Column, Records depend on this field")
+    end
+
   end
 
   def is_column_empty?(column_name)
